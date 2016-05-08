@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ostukorv</title>
+
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700|Lato:400,100,300,700,900'
+          rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/animate.css">
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div id="container">
+    <ul id="menu">
+        <?php if(isset($_SESSION['id'])): ?>
+        <a class="header-links right" href="/~mkonsa/Ostukorv/index.php?page=logout">Logi välja</a>
+        <?php else: ?>
+        <a class="header-links right" href="/~mkonsa/Ostukorv/index.php?page=login">Logi sisse</a>
+        <?php endif; ?>
+    </ul>
+    <div class="top">
+        <h1 id="title" class="hidden"><span id="logo">Toidukorv</span></h1>
+    </div>
