@@ -8,8 +8,6 @@
         <th>Ostetud</th>
     </tr>
     <br/>
-
-
     <?php if (!empty($tooted)){
 
  		foreach($tooted as $toode){
@@ -18,17 +16,18 @@
     <tr>
         <td><?php echo $toode['description']; ?></td>
         <td><?php echo $toode['count']; ?></td>
-        <td><input type="checkbox"/></td>
+        <td><input id="<?php echo $toode['id']; ?>" type="checkbox" name="checked"/></td>
     </tr>
     <br/>
     <?php
- }
+    }
  }
  ?>
 
     <br/>
     </table>
-
+    <button id="save" onclick="save()">Salvesta</button>
+    <br/>
     <input id="toggle" type="checkbox">
     <label for="toggle">Lisa uus</label>
     <div id="expand">
@@ -39,6 +38,29 @@
             <td>
                 <button type="submit">Lisa</button>
             </td>
+
+            <script>
+
+             $("input:checkbox[name=checked]").change(function(){
+
+             var result = 0;
+             var itemId =$(this).attr('id');
+
+             if(this.checked) {
+                result = 1;
+             }
+
+                    $.post("/~mkonsa/Ostukorv/scripts/updateItem.php",
+                    {
+                      checked: result,
+                      id: itemId
+                    },
+                    function(data,status){
+                        alert("Data: " + data + "\nStatus: " + status);
+                    });
+                 });
+            </script>
+
         </form>
     </div>
 </div>
