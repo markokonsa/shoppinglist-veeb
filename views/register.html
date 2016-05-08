@@ -15,6 +15,10 @@
         <br/>
         <input type="password" name="password2" id="password2">
         <br/>
+        <?php if(isset($GLOBALS['registerError'])): ?>
+        <div class='error'>ERROR FOUND</div>
+        <br/>
+        <?php endif; ?>
         <button type="submit">Registreeru</button>
         <br/>
     </form>

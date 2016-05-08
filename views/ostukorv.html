@@ -8,42 +8,31 @@
         <th>Ostetud</th>
     </tr>
     <br/>
+
+
+    <?php if (!empty($tooted)){
+
+ 		foreach($tooted as $toode){
+ 	?>
+
     <tr>
-        <td>Piim</td>
-        <td>5</td>
+        <td><?php echo $toode['description']; ?></td>
+        <td><?php echo $toode['count']; ?></td>
         <td><input type="checkbox"/></td>
     </tr>
     <br/>
-    <tr>
-        <td>Piim</td>
-        <td>5</td>
-        <td><input type="checkbox"/></td>
-    </tr>
-    <br/>
-    <tr>
-        <td>Piim</td>
-        <td>5</td>
-        <td><input type="checkbox"/></td>
-    </tr>
-    <br/>
-    <tr>
-        <td>Piim</td>
-        <td>5</td>
-        <td><input type="checkbox"/></td>
-    </tr>
-    <br/>
-    <tr>
-        <td>Piim</td>
-        <td>5</td>
-        <td><input type="checkbox"/></td>
-    </tr>
+    <?php
+ }
+ }
+ ?>
+
     <br/>
     </table>
 
     <input id="toggle" type="checkbox">
     <label for="toggle">Lisa uus</label>
     <div id="expand">
-        <form>
+        <form id="addItem" action="scripts/addItem.php" method="POST">
             <td><input type="text" name="item" placeholder="Toote nimi"/></td>
             <td><input type="number" name="count" placeholder="Kui palju?"/></td>
             <br/>

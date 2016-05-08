@@ -2,6 +2,11 @@
     <div class="box-header">
         <h2>Logi sisse</h2>
     </div>
+
+    <?php if(isset($GLOBALS['loginError'])): ?>
+    <div class='error'>ERROR FOUND</div>
+    <?php endif; ?>
+
     <form id="loginForm" action="scripts/login.php" method="POST">
         <label for="username">Kasutajanimi</label>
         <br/>
@@ -11,6 +16,10 @@
         <br/>
         <input type="password" name="password" id="password">
         <br/>
+        <?php if(isset($loginError)): ?>
+        <div class='error'>ERROR FOUND</div>
+        <br/>
+        <?php endif; ?>
         <button type="submit">Logi sisse</button>
     </form>
     <br/>

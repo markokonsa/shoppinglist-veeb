@@ -8,6 +8,17 @@ body {
 	color: #666;
 }
 
+#expand {
+  height: 0px;
+  overflow: hidden;
+  transition: height 0.5s;
+  color: #FFF;
+}
+
+#toggle:checked ~ #expand {
+  height: auto;
+}
+
 /* Typography */
 h1#title {
 	font-family: 'Roboto Slab', serif;
@@ -122,6 +133,27 @@ p.small {
 	background-color: #665851;
 	cursor:pointer;
 	outline: none;
+}
+
+.header-links {
+	margin-top: 0px;
+	border: 0;
+	border-radius: 2px;
+	color: white;
+	padding: 10px;
+	text-transform: uppercase;
+	font-weight: 400;
+	font-size: 0.7em;
+	letter-spacing: 1px;
+	background-color: #665851;
+	cursor:pointer;
+	outline: none;
+}
+
+.right {
+    position: absolute;
+    right: 0px;
+    padding: 10px;
 }
 
 .login-box button:hover {

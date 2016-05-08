@@ -1,6 +1,6 @@
 <?php
 
-require_once('funk.php');
+require_once('functions.php');
 session_start();
 connect_db();
 
@@ -15,6 +15,7 @@ if($count == 1) {
 
     header("Location: /~mkonsa/Ostukorv/index.php?page=shoplist");
 } else {
+    $GLOBALS['loginError'] = 'Sisselogimine ebaõnnestus!';
     header("Location: /~mkonsa/Ostukorv/index.php");
 }
 ?>
