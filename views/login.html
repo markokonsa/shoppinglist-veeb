@@ -30,6 +30,8 @@
 
                 if (response['error'] != undefined) {
                     $('div[class="error"]').append(response['error']);
+                } else if (response['success'] != undefined) {
+                    window.location.href = response['success'];
                 }
                 });
          });

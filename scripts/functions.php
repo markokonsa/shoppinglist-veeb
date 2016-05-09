@@ -25,5 +25,7 @@ function openShopList() {
         $tooted = mysqli_query($connection , $sql) or die(mysqli_error($connection));
 
         include('views/ostukorv.html');
+    } else {
+        header("Location: /~mkonsa/Ostukorv/index.php");
     }
 }

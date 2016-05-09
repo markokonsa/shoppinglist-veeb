@@ -13,7 +13,8 @@ if($count == 1) {
     $_SESSION['id']    = $row[0];
     $_SESSION['username'] = $row[1];
 
-    header("Location: /~mkonsa/Ostukorv/index.php?page=shoplist");
+    $success = array('success' => '/~mkonsa/Ostukorv/index.php?page=shoplist');
+    echo json_encode($success);
 } else {
     $error = array('error' => 'Sisselogimine ebaõnnestus!');
     echo json_encode($error);

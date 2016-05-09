@@ -37,13 +37,11 @@
                     $('div[class="error"]').append(response['error']);
                      $("input[name=password], textarea").val("");
                      $("input[name=password2], textarea").val("");
+                } else if (response['success'] != undefined) {
+                    window.location.href = response['success'];
                 }
                 });
          });
-
-
-
-
 
     </script>
 

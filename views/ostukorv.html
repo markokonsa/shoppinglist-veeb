@@ -1,7 +1,6 @@
 <div class="login-box animated fadeInUp">
     <div class="box-header">
         <h2>Ostukorvi sisu</h2>
-        <button>Uuenda</button>
     </div>
     <table class="shoplist" align="center">
         <tr>
@@ -27,6 +26,7 @@
     <input id="toggle" type="checkbox">
     <label for="toggle">Lisa uus</label>
     <div id="expand">
+        <div class="error"></div>
         <form id="addItem">
             <td><input type="text" name="item" placeholder="Toote nimi"/></td>
             <td><input type="number" name="count" placeholder="Kui palju?"/></td>
@@ -40,6 +40,8 @@
 
             $('button[id="addNewBtn"]').click(function(){
 
+                $(".error").empty();
+
                 var data = $('form[id="addItem"]').serialize();
                 $.post("scripts/addItem.php",
                 data,
@@ -47,12 +49,17 @@
 
                     var response = JSON.parse(data);
                     if (status == 'success') {
-                        $("input[name=item], textarea").val("");
-                        $("input[name=count], textarea").val("");
-
-                        $('table[class="shoplist"]').append("<tr><td>"+response['description']+"</td><td>"+response['count']+"</td><td><input id="+response['id']+" type='checkbox' name='checked'/></td></tr><br/>");
+                        if (response['error'] != undefined) {
+                                    $('div[class="error"]').append(response['error']);
+                        } else {
+                            $("input[name=item], textarea").val("");
+                            $("input[name=count], textarea").val("");
+                            $('table[class="shoplist"]').append("<tr><td>"+response['description']+"</td><td>"+response['count']+"</td><td><input id="+response['id']+" type='checkbox' name='checked'/></td></tr><br/>");
+                        }
 
                         $("input:checkbox[name=checked]").change(function(){
+
+                         $(".error").empty();
 
                          var result = 0;
                          var itemId =$(this).attr('id');
@@ -64,7 +71,11 @@
                                   checked: result,
                                   id: itemId
                                 },
-                                function(data,status){});
+                                function(data,status){
+                                if (response['error'] != undefined) {
+                                    $('div[class="error"]').append(response['error']);
+                                }
+                                });
                              });
                     }
                 });
@@ -72,6 +83,8 @@
             });
 
              $("input:checkbox[name=checked]").change(function(){
+
+             $(".error").empty();
 
              var result = 0;
              var itemId =$(this).attr('id');
@@ -85,13 +98,13 @@
                       checked: result,
                       id: itemId
                     },
-                    function(data,status){});
+                    function(data,status){
+                    var response = JSON.parse(data);
+                     if (response['error'] != undefined) {
+                        $('div[class="error"]').append(response['error']);
+                     }
+                   });
                  });
-
-
-
-
-
         </script>
     </div>
 </div>
