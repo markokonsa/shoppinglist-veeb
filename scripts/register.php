@@ -23,12 +23,15 @@ if ($password == $password2) {
 
             header("Location: /~mkonsa/Ostukorv/index.php?page=shoplist");
         }else {
-            echo "Registreerumine ei õnnestunud!";
+            $error = array('error' => 'Registreerumine ei õnnestunud!');
+            echo json_encode($error);
         }
     } else {
-    echo "Sellise kasutajanimega kasutaja on juba olemas!";
+        $error = array('error' => 'Sellise kasutajanimega kasutaja on juba olemas!');
+        echo json_encode($error);
 }
 } else {
-    echo "Paroolid ei ühti!";
+    $error = array('error' => 'Paroolid ei ühti!');
+    echo json_encode($error);
 }
 ?>

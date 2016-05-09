@@ -15,6 +15,7 @@ if($count == 1) {
 
     header("Location: /~mkonsa/Ostukorv/index.php?page=shoplist");
 } else {
-    echo "Sisselogimine ebaõnnestus!";
+    $error = array('error' => 'Sisselogimine ebaõnnestus!');
+    echo json_encode($error);
 }
 ?>

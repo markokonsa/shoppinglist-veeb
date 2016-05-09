@@ -2,12 +2,9 @@
     <div class="box-header">
         <h2>Logi sisse</h2>
     </div>
+    <div class='error'></div>
 
-    <?php if(isset($GLOBALS['loginError'])): ?>
-    <div class='error'>ERROR FOUND</div>
-    <?php endif; ?>
-
-    <form id="loginForm" action="scripts/login.php" method="POST">
+    <form id="loginForm">
         <label for="username">Kasutajanimi</label>
         <br/>
         <input type="text" name="username" id="username">
@@ -16,12 +13,25 @@
         <br/>
         <input type="password" name="password" id="password">
         <br/>
-        <?php if(isset($loginError)): ?>
-        <div class='error'>ERROR FOUND</div>
-        <br/>
-        <?php endif; ?>
-        <button type="submit">Logi sisse</button>
     </form>
+        <button id="loginBtn">Logi sisse</button>
     <br/>
     <a href="/~mkonsa/Ostukorv/index.php?page=register"><p class="small">Registreeri kasutajaks</p></a>
+
+    <script>
+        $('button[id="loginBtn"]').click(function(){
+                $(".error").empty();
+
+                var data = $('form[id="loginForm"]').serialize();
+                $.post("scripts/login.php",
+                data,
+                function(data,status){
+                var response = JSON.parse(data);
+
+                if (response['error'] != undefined) {
+                    $('div[class="error"]').append(response['error']);
+                }
+                });
+         });
+    </script>
 </div>

@@ -2,7 +2,10 @@
     <div class="box-header">
         <h2>Registreeru kasutajaks</h2>
     </div>
-    <form id="registerForm" action="scripts/register.php" method="POST">
+
+    <div class='error'></div>
+
+    <form id="registerForm">
         <label for="username">Kasutajanimi</label>
         <br/>
         <input type="text" name="username" id="username">
@@ -15,12 +18,33 @@
         <br/>
         <input type="password" name="password2" id="password2">
         <br/>
-        <?php if(isset($GLOBALS['registerError'])): ?>
-        <div class='error'>ERROR FOUND</div>
-        <br/>
-        <?php endif; ?>
-        <button type="submit">Registreeru</button>
-        <br/>
     </form>
+    <button id="registerBtn">Registreeru</button>
+    <br/>
     <a href="/~mkonsa/Ostukorv/index.php"><p class="small">Juba oled kasutaja?</p></a>
+
+    <script>
+        $('button[id="registerBtn"]').click(function(){
+                $(".error").empty();
+
+                var data = $('form[id="registerForm"]').serialize();
+                $.post("scripts/register.php",
+                data,
+                function(data,status){
+                var response = JSON.parse(data);
+
+                if (response['error'] != undefined) {
+                    $('div[class="error"]').append(response['error']);
+                     $("input[name=password], textarea").val("");
+                     $("input[name=password2], textarea").val("");
+                }
+                });
+         });
+
+
+
+
+
+    </script>
+
 </div>

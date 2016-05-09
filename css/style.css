@@ -181,3 +181,7 @@ p.small {
   -webkit-animation-duration: 1s;
   -webkit-animation-delay: 1s;
 }
+
+.error {
+  color: red;
+}
