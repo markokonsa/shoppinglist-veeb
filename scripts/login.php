@@ -15,7 +15,6 @@ if($count == 1) {
 
     header("Location: /~mkonsa/Ostukorv/index.php?page=shoplist");
 } else {
-    $GLOBALS['loginError'] = 'Sisselogimine ebaõnnestus!';
-    header("Location: /~mkonsa/Ostukorv/index.php");
+    echo "Sisselogimine ebaõnnestus!";
 }
 ?>

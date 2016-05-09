@@ -1,43 +1,75 @@
 <div class="login-box animated fadeInUp">
     <div class="box-header">
         <h2>Ostukorvi sisu</h2>
+        <button>Uuenda</button>
     </div>
-    <tr>
-        <th>Nimetus</th>
-        <th>Kogus</th>
-        <th>Ostetud</th>
-    </tr>
-    <br/>
-    <?php if (!empty($tooted)){
+    <table class="shoplist" align="center">
+        <tr>
+            <th>Nimetus</th>
+            <th>Kogus</th>
+            <th>Ostetud</th>
+        </tr>
+        <?php if (!empty($tooted)){
 
  		foreach($tooted as $toode){
  	?>
 
-    <tr>
-        <td><?php echo $toode['description']; ?></td>
-        <td><?php echo $toode['count']; ?></td>
-        <td><input id="<?php echo $toode['id']; ?>" type="checkbox" name="checked"/></td>
-    </tr>
-    <br/>
-    <?php
+        <tr>
+            <td><?php echo $toode['description']; ?></td>
+            <td><?php echo $toode['count']; ?></td>
+            <td><input id="<?php echo $toode['id']; ?>" type="checkbox" name="checked"/></td>
+        </tr>
+        <?php
     }
  }
  ?>
-
-    <br/>
     </table>
     <input id="toggle" type="checkbox">
     <label for="toggle">Lisa uus</label>
     <div id="expand">
-        <form id="addItem" action="scripts/addItem.php" method="POST">
+        <form id="addItem">
             <td><input type="text" name="item" placeholder="Toote nimi"/></td>
             <td><input type="number" name="count" placeholder="Kui palju?"/></td>
             <br/>
-            <td>
-                <button type="submit">Lisa</button>
-            </td>
+        </form>
+        <td>
+            <button id="addNewBtn">Lisa</button>
+        </td>
 
-            <script>
+        <script>
+
+            $('button[id="addNewBtn"]').click(function(){
+
+                var data = $('form[id="addItem"]').serialize();
+                $.post("scripts/addItem.php",
+                data,
+                function(data,status){
+
+                    var response = JSON.parse(data);
+                    if (status == 'success') {
+                        $("input[name=item], textarea").val("");
+                        $("input[name=count], textarea").val("");
+
+                        $('table[class="shoplist"]').append("<tr><td>"+response['description']+"</td><td>"+response['count']+"</td><td><input id="+response['id']+" type='checkbox' name='checked'/></td></tr><br/>");
+
+                        $("input:checkbox[name=checked]").change(function(){
+
+                         var result = 0;
+                         var itemId =$(this).attr('id');
+                         if(this.checked) {
+                            result = 1;
+                         }
+                                $.post("/~mkonsa/Ostukorv/scripts/updateItem.php",
+                                {
+                                  checked: result,
+                                  id: itemId
+                                },
+                                function(data,status){});
+                             });
+                    }
+                });
+
+            });
 
              $("input:checkbox[name=checked]").change(function(){
 
@@ -53,12 +85,13 @@
                       checked: result,
                       id: itemId
                     },
-                    function(data,status){
-                        alert("Data: " + data + "\nStatus: " + status);
-                    });
+                    function(data,status){});
                  });
-            </script>
 
-        </form>
+
+
+
+
+        </script>
     </div>
 </div>
