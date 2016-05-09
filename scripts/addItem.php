@@ -4,8 +4,8 @@ require_once('functions.php');
 session_start();
 connect_db();
 
-$item = $_POST['item'];
-$count = $_POST['count'];
+$item = mysqli_real_escape_string($connection, $_POST['item']);
+$count =  mysqli_real_escape_string($connection, $_POST['count']);
 $user_id = $_SESSION['id'];
 
 if (empty($item)) {

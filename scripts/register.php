@@ -4,9 +4,9 @@ require_once('functions.php');
 session_start();
 connect_db();
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$password2 = $_POST['password2'];
+$username = mysqli_real_escape_string($connection, $_POST['username']);
+$password = mysqli_real_escape_string($connection, $_POST['password']);
+$password2 = mysqli_real_escape_string($connection, $_POST['password2']);
 
 if ($password == $password2) {
 

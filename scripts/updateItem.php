@@ -4,8 +4,8 @@ require_once('functions.php');
 session_start();
 connect_db();
 
-$itemId = $_POST['id'];
-$result = $_POST['checked'];
+$itemId = mysqli_real_escape_string($connection, $_POST['id']);
+$result = mysqli_real_escape_string($connection, $_POST['checked']);
 
 $user = $_SESSION['id'];
 
